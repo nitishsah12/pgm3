@@ -1,28 +1,29 @@
-name: First GitHub Actions # Name of the GitHub Actions workflow.
+name: My First GitHub Actions
 
-on: [push] # Trigger this workflow on push events.
+on: [push]
 
 jobs:
-  build: # Job name.
-    runs-on: ubuntu-latest # The job runs on the latest version of Ubuntu.
+  build:
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9] # The job runs on Python versions 3.8 and 3.9.
+        python-version: [3.8, 3.9]
 
-    steps:
-    -uses: actions/checkout@v3
-    -name: Setting up Python
-     uses: actions/setup-python@v2
-     with:
-      python-version: ${{ matrix.python-version }}
+    steps: 
 
-    -name: Installing all the dependencies
-     run: |
-      python -m pip install --upgrade pip # Upgrade pip.
-      pip install pytest
-      
-    -name: Running tests
-     run: |
-      cd src
-      python -m pytest addition.py
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+
+    - name: Run tests
+      run: |
+        cd src
+        python -m pytest addition.py
